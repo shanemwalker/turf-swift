@@ -42,6 +42,8 @@ public struct AnyJSONType: JSONType {
             jsonValue = doubleValue
         } else if let doubleValue = try? container.decode([String: AnyJSONType].self) {
             jsonValue = doubleValue
+        } else if container.decodeNil() {
+          jsonValue = ""
         } else {
             throw DecodingError.typeMismatch(JSONType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Unsupported JSON type"))
         }
